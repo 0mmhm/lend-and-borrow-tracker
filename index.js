@@ -1,10 +1,11 @@
 const express = require('express');
+require('./services/passport');
+
 const app = express();
 
-const port = 5000;
- 
+require('./routes/authRoutes')(app);
 
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
