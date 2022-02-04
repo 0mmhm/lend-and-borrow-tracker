@@ -26,6 +26,7 @@ passport.use(
         // console.log('access token', accessToken);
         // console.log('refresh token', refreshToken);
         // console.log('profile', profile);
+        let { id, displayName, emails } = profile;
 
         User.findOne({googleId: profile.id}).then((existingUser) => {
             if(existingUser) {
@@ -35,8 +36,9 @@ passport.use(
             else {
                 // new user
                 new User({ 
-                    googleId: profile.id,
-                    name: profile.displayName
+                    googleId: id,
+                    name: displayName,
+                    email: emails[0].value
                 })
                 .save()
                 .then(user => done(null, user));
